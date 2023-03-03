@@ -1,6 +1,5 @@
 package com.example.listacompra
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -13,10 +12,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
@@ -24,6 +23,7 @@ import java.time.format.DateTimeFormatter
 @Preview(showSystemUi = true)
 @Composable
 fun Principal() {
+    val viewModel: ShopListViewModel = viewModel()
     Scaffold(
         scaffoldState = rememberScaffoldState(),
         topBar = {
@@ -42,6 +42,7 @@ fun Principal() {
             ) {
                 Text(text = LocalDate.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy")))
             }
+
             LazyColumn(
                 Modifier
                     .padding(top = 20.dp)
@@ -49,7 +50,7 @@ fun Principal() {
                     .padding(10.dp),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                items(items) { shopList -> ItemShopList(shopList) }
+                items(items = viewModel.shoplistItems) { element -> ShopListItem(element, onClose = {viewModel.removeShopListItem(element)} ) }
             }
         }
     }

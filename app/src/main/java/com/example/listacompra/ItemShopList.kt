@@ -1,40 +1,22 @@
 package com.example.listacompra
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.runtime.*
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.geometry.Offset
-import androidx.compose.ui.geometry.Rect
-import androidx.compose.ui.geometry.Size
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.Outline
-import androidx.compose.ui.graphics.Path
-import androidx.compose.ui.graphics.Shape
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.tooling.preview.PreviewParameter
-import androidx.compose.ui.tooling.preview.PreviewParameterProvider
-import androidx.compose.ui.unit.Density
-import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
-class SampleListDataProvider : PreviewParameterProvider<MyShopList> {
-    override val values = sequenceOf(MyShopList("Producto 1"))
-}
 
-@Preview(showSystemUi = true)
+
 @Composable
-fun ItemShopList(@PreviewParameter(SampleListDataProvider::class) items: MyShopList) {
-
-    var isPurchased by rememberSaveable { mutableStateOf(false) }
-
+fun ShopListItem(
+    items: ShopListElement,
+    onClose: () -> Unit
+) {
     Column(
         Modifier.fillMaxSize(),
         horizontalAlignment = Alignment.Start
@@ -61,12 +43,12 @@ fun ItemShopList(@PreviewParameter(SampleListDataProvider::class) items: MyShopL
                 )
 
                 Checkbox(
-                    checked = isPurchased,
-                    onCheckedChange = { isPurchased = it }
+                    checked = items.purchased,
+                    onCheckedChange = { items.purchased = it }
                 )
 
                 IconButton(
-                    onClick = { println("Clicked") }
+                    onClick = onClose
                 ) {
                     Icon(Icons.Filled.Close, contentDescription = "Close")
                 }
@@ -74,3 +56,4 @@ fun ItemShopList(@PreviewParameter(SampleListDataProvider::class) items: MyShopL
         }
     }
 }
+

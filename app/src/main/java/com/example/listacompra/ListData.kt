@@ -1,26 +1,28 @@
 package com.example.listacompra
 
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 
-import java.time.LocalTime
 
-data class MyShopList(
-    val producto: String,
-)
+class ShopListElement(val producto: String, notPurchased: Boolean = false){
+    var purchased by mutableStateOf(notPurchased)
+}
 
-val items: List<MyShopList> = listOf(
-    MyShopList(
+fun getItemList() = listOf(
+    ShopListElement(
         "Producto 1"
     ),
-    MyShopList(
+    ShopListElement(
         "Producto 2"
     ),
-    MyShopList(
+    ShopListElement(
         "Producto 3"
     ),
-    MyShopList(
+    ShopListElement(
         "Producto 4"
     ),
-    MyShopList(
+    ShopListElement(
         "Producto 5"
     )
 )
