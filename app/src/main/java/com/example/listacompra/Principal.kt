@@ -7,6 +7,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import com.example.listacompra.ui.theme.AddFAB
 
 
 @Preview(showSystemUi = true)
@@ -22,14 +23,7 @@ fun Principal() {
             })
         },
         floatingActionButton = {
-            FloatingActionButton(
-                onClick = { showDialog.value = true }
-            ) {
-                Icon(
-                    imageVector = Icons.Default.Add,
-                    contentDescription = "Add item"
-                )
-            }
+            AddFAB(showDialog = showDialog)
         }
     ) { paddingValues ->
         Content(paddingValues, showDialog, context)

@@ -8,7 +8,7 @@ import androidx.compose.runtime.*
 
 @Composable
 fun AddElement(
-    onConfirm: (String) -> Unit,
+    onConfirmAddElement: (String) -> Unit,
     onDismiss: () -> Unit
 ) {
     var defaultName by remember { mutableStateOf("") }
@@ -23,7 +23,33 @@ fun AddElement(
         onDismissRequest = onDismiss,
         confirmButton = {
             TextButton(onClick = { // (4)
-                onConfirm(defaultName)
+                onConfirmAddElement(defaultName)
+                onDismiss()
+            }) {
+                Text(text = "Confirmar")
+            }
+        },
+        dismissButton = {
+            TextButton(onClick = {
+                onDismiss()
+            }) {
+                Text(text = "Cancelar")
+            }
+        }
+    )
+}
+
+@Composable
+fun DeleteElement(
+    onConfirmDeleteElement: () -> Unit,
+    onDismiss: () -> Unit
+) {
+    AlertDialog(
+        title = { Text(text = "Delete this elements?") },
+        onDismissRequest = onDismiss,
+        confirmButton = {
+            TextButton(onClick = { // (4)
+                onConfirmDeleteElement()
                 onDismiss()
             }) {
                 Text(text = "Confirmar")

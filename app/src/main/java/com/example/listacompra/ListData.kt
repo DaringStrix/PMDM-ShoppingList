@@ -5,8 +5,8 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 
 
-class ShopListElement(val producto: String, notPurchased: Boolean = false){
-    var purchased by mutableStateOf(notPurchased)
+class ShopListElement(val producto: String){
+    var isPurchased by mutableStateOf(false)
 }
 
 fun getItemList() = listOf(

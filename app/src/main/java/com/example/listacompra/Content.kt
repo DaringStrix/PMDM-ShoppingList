@@ -8,12 +8,14 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.listacompra.ui.theme.DeleteFAB
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
@@ -50,8 +52,14 @@ fun Content(paddingValues: PaddingValues, showDialog: MutableState<Boolean>, con
 
         if (showDialog.value) {
             AddElement(
-                onConfirm = { viewModel.addShopListItem(ShopListElement(it), context) }
+                onConfirmAddElement = { viewModel.addShopListItem(ShopListElement(it), context) }
             ) { showDialog.value = false }
+        }
+
+        if (viewModel.isPurchased()) {
+            DeleteFAB {
+                viewModel.removeMultipleShopListItems()
+            }
         }
     }
 }

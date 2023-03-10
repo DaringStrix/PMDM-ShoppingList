@@ -43,8 +43,8 @@ fun ShopListItem(
                 )
 
                 Checkbox(
-                    checked = items.purchased,
-                    onCheckedChange = { items.purchased = it }
+                    checked = items.isPurchased,
+                    onCheckedChange = { items.isPurchased = it }
                 )
 
                 IconButton(

@@ -12,15 +12,23 @@ class ShopListViewModel : ViewModel() {
     val shoplistItems: SnapshotStateList<ShopListElement>
         get() = _shoplistItems
 
-
-    fun removeShopListItem(item: ShopListElement){shoplistItems.remove(item)}
-    fun addShopListItem(item: ShopListElement, context: Context){/*
-        if (!onlist(item)) shoplistItems.add(item)*/
-
-            shoplistItems.find { item.producto == it.producto }?.let { Toast.makeText(context ,"Ese producto ya existe.", Toast.LENGTH_SHORT ).show()
-                println("toast")} ?: shoplistItems.add(item)
-
-
+    fun removeShopListItem(item: ShopListElement) {
+        shoplistItems.remove(item)
     }
 
+    fun addShopListItem(item: ShopListElement, context: Context) {
+        shoplistItems.find { item.producto == it.producto }?.let {
+            Toast.makeText(context, "Ese producto ya existe.", Toast.LENGTH_SHORT).show()
+            println("toast")
+        } ?: shoplistItems.add(item)
+    }
+
+    fun removeMultipleShopListItems() {
+        shoplistItems.removeIf { it.isPurchased }
+    }
+    fun isPurchased(): Boolean {
+        var isPurchased = false
+        shoplistItems.forEach { if (it.isPurchased) isPurchased = true }
+        return isPurchased
+    }
 }
