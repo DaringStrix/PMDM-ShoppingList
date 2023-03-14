@@ -16,7 +16,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.example.listacompra.DeleteElement
+import com.example.listacompra.DeleteElementDialog
 
 @Composable
 fun DeleteFAB(remove: () -> Unit) {
@@ -38,7 +38,7 @@ fun DeleteFAB(remove: () -> Unit) {
             )
         }
         if (delete.value) {
-            DeleteElement(onConfirmDeleteElement = remove) { delete.value = false }
+            DeleteElementDialog(onConfirmDeleteElement = remove) { delete.value = false }
         }
     }
 }

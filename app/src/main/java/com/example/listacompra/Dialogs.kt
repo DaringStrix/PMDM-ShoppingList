@@ -5,20 +5,25 @@ import androidx.compose.material.Text
 import androidx.compose.material.TextButton
 import androidx.compose.material.TextField
 import androidx.compose.runtime.*
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusRequester
+import kotlinx.coroutines.delay
 
 @Composable
-fun AddElement(
+fun AddElementDialog(
     onConfirmAddElement: (String) -> Unit,
     onDismiss: () -> Unit
 ) {
     var defaultName by remember { mutableStateOf("") }
-
+    val focusRequester = FocusRequester()
     AlertDialog(
         title = { Text(text = "Add new element") },
         text = {
             TextField(
                 value = defaultName,
-                onValueChange = { itemName -> defaultName = itemName })
+                onValueChange = { itemName -> defaultName = itemName },
+            Modifier.focusRequester(focusRequester))
         },
         onDismissRequest = onDismiss,
         confirmButton = {
@@ -37,10 +42,14 @@ fun AddElement(
             }
         }
     )
+    LaunchedEffect(Unit) {
+        delay(100)
+        focusRequester.requestFocus()
+    }
 }
 
 @Composable
-fun DeleteElement(
+fun DeleteElementDialog(
     onConfirmDeleteElement: () -> Unit,
     onDismiss: () -> Unit
 ) {
